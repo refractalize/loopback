@@ -75,13 +75,13 @@ var create_description = function (name) {
             number_of_tests_complete++;
             if (number_of_tests_complete === tests.length) {
             }
-            sys.print(test.name + " [0;31mFAILED[0m\n");
+            sys.print(name + ' ' + test.name + " [0;31mFAILED[0m\n");
         },
         test_passed: function (test) {
             number_of_tests_complete++;
             if (number_of_tests_complete === tests.length) {
             }
-            sys.print(test.name + " [0;32;40mOK[0m\n");
+            sys.print(name + ' ' + test.name + " [0;32;40mOK[0m\n");
         }
     };
 
@@ -107,6 +107,9 @@ var create_test = function(description, name, test_function) {
             try {
                 callbacks = callback_expectations.run_and_collect_callback_expectations(test, test_function);
                 number_of_callbacks_finished = callbacks.length;
+                if (number_of_callbacks_finished === 0) {
+                    passed();
+                }
             } catch (e) {
                 failed(e);
             }
